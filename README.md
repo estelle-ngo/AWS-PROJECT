@@ -13,3 +13,4 @@ Le VPC permet de créer ton propre réseau privé dans AWS, comme si tu construi
  •	Appliquer des groupes de sécurité/ règles de sécurité et ACLs
 
 👉 Tous les services AWS comme EC2, RDS, Lambda peuvent être déployés dans un VPC.
+✅ Rôle du VPC :✅ Rôle du VPC :✅ Rôle du VPC :
