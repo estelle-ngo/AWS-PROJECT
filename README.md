@@ -22,9 +22,50 @@ Le VPC permet de créer ton propre réseau privé dans AWS, comme si tu construi
 
 ✅  Application Layer: Auto Scaling Group of EC2 instances (Amazon Linux 2023) in private subnets.
 
-✅  Data Layer: Amazon RDS MySQL in DB subnets, with credentials stored in Secrets Manager.
+
 ✅  	Connectivity: NAT Gateway for updates from private instances.
-✅
+✅  Amazon S3 (Simple Storage Service)  Type de service: Stockage d’objets.
+
+ça sert à
+- Sauvegarder des fichiers (images, vidéos, PDF, backups, logs, fichiers zip, etc.).
+- Héberger du contenu statique (par exemple un site statique HTML).
+- Stocker des dumps SQL, du code, ou des fichiers à partager entre services AWS.
+Accessible via HTTP/HTTPS (API REST).
+✅  Data Layer: Amazon RDS MySQL in DB subnets, with credentials stored in Secrets Manager.
+ 
+ Amazon RDS (Relational Database Service)
+
+🗄️ Type de service : Base de données relationnelle managée.
+
+🛠️ À quoi ça sert ?
+
+Stocker et gérer des données structurées (par exemple des utilisateurs, des commandes, des statistiques).
+
+Supporte plusieurs moteurs : MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, Aurora.
+
+Permet aux applications (comme ton site PHP) de faire des requêtes SQL : SELECT, INSERT, UPDATE, etc.
+
+⚙️ Caractéristiques :
+
+Stocke les données en tables et colonnes.
+
+Gère les sauvegardes automatiques, la haute disponibilité, la réplication.
+
+Accès uniquement via une connexion réseau (port 3306 pour MySQL).
+
+Optimisé pour des applications transactionnelles (sites web, ERP, CRM).
+
+3. Résumé de la différence
+
+S3 = Stockage de fichiers (non structuré).
+
+RDS = Base de données relationnelle (structurée en tables).
+
+👉 Exemple concret avec ton projet :
+
+Tu vas mettre ton code PHP et ton dump SQL dans S3 pour que tes instances EC2 puissent les récupérer facilement.
+
+Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton site (tables, statistiques, comptes, etc.).
 ✅
 High Availability
 •	Traffic distribution via ALB.
