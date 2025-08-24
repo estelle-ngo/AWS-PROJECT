@@ -2,6 +2,7 @@
 Projet du cours sur le cloud AWS
 
 Introduction
+
 The project involves deploying an existing PHP application on AWS while adhering to security, availability, and scalability best practices. The goal is to ensure a publicly accessible website while protecting backend systems.
 
 Architecture
@@ -17,13 +18,69 @@ Le VPC permet de créer ton propre réseau privé dans AWS, comme si tu construi
 
 👉 Tous les services AWS comme EC2, RDS, Lambda peuvent être déployés dans un VPC.
 
-✅ 	Public Layer: Application Load Balancer in public subnets.
-
-
 ✅  Application Layer: Auto Scaling Group of EC2 instances (Amazon Linux 2023) in private subnets.
 
 
+Ce sont les serveurs applicatifs qui contiennent ton code métier (API, backend, site web, etc.).
+
+Placés dans des private subnets pour les protéger d’Internet.
+
+Seul l’ALB peut les contacter.
+
+Auto Scaling Group (ASG) :
+
+Ajoute ou supprime des EC2 selon la charge.
+
+Garantit toujours un nombre minimal d’instances.
+
+👉 Rôle : exécuter ton application web et traiter les requêtes.
+
+
+✅ 	Public Layer: Application Load Balancer in public subnets.
+
+Le Load Balancer (ALB) est en front door de ton application.
+
+Placé dans des public subnets car il doit être accessible depuis Internet (HTTP/HTTPS).
+
+Il distribue le trafic vers tes instances EC2 dans les private subnets.
+
+Avantages :
+
+Sécurité → tes EC2 ne sont pas exposées directement au public.
+
+Haute disponibilité → le trafic est réparti automatiquement.
+
+Scalabilité → il s’adapte avec l’Auto Scaling Group.
+
+👉 Rôle : recevoir les requêtes Internet et les rediriger vers tes serveurs applicatifs.
+
+
 ✅  	Connectivity: NAT Gateway for updates from private instances.
+
+Située dans un public subnet.
+Donne aux instances privées (EC2 App Layer) la possibilité de sortir sur Internet (par ex. pour télécharger des updates, paquets, librairies).
+Mais Internet ne peut pas initier de connexion vers elles ( accès sortant uniquement à Internet pour tes instances privées.
+).
+
+Exemple :
+
+Ton serveur applicatif EC2 dans un subnet privé fait un yum update.
+Il passe par la route → NAT Gateway → IGW → Internet.
+
+
+✅  IGW (Internet Gateway)
+
+Attachée au VPC.
+Nécessaire pour toute communication entre le VPC et Internet.
+
+Sert à deux choses :
+- L’ALB dans le public subnet → reçoit du trafic entrant depuis Internet.
+- La NAT Gateway → envoie le trafic sortant vers Internet.
+
+👉 Rôle : la porte d’entrée/sortie du VPC vers Internet.
+
+
+
 ✅  Amazon S3 (Simple Storage Service)  Type de service: Stockage d’objets.
 
 ça sert à
@@ -31,48 +88,43 @@ Le VPC permet de créer ton propre réseau privé dans AWS, comme si tu construi
 - Héberger du contenu statique (par exemple un site statique HTML).
 - Stocker des dumps SQL, du code, ou des fichiers à partager entre services AWS.
 Accessible via HTTP/HTTPS (API REST).
-✅  Data Layer: Amazon RDS MySQL in DB subnets, with credentials stored in Secrets Manager.
- 
- Amazon RDS (Relational Database Service)
 
-🗄️ Type de service : Base de données relationnelle managée.
+✅  Data Layer: Amazon RDS (Relational Database Service). MySQL in DB subnets, with credentials stored in Secrets Manager.
+  
+Amazon RDS est un service de Base de données relationnelle managée avec lequel on peut:
+- Stocker et gérer des données structurées , c 'est à dire Stocke les données en tables et colonnes (par exemple des utilisateurs, des commandes, des statistiques).
+- Supporte plusieurs moteurs : MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, Aurora.
+- Permet aux applications  de faire des requêtes SQL : SELECT, INSERT, UPDATE, etc.
+- Gère les sauvegardes automatiques, la haute disponibilité, la réplication.
+- il est Optimisé pour des applications transactionnelles (sites web, ERP, CRM).
 
-🛠️ À quoi ça sert ?
+ Accès uniquement via une connexion réseau (port 3306 pour MySQL).
 
-Stocker et gérer des données structurées (par exemple des utilisateurs, des commandes, des statistiques).
 
-Supporte plusieurs moteurs : MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, Aurora.
 
-Permet aux applications (comme ton site PHP) de faire des requêtes SQL : SELECT, INSERT, UPDATE, etc.
+🔹. Résumé de la différence
 
-⚙️ Caractéristiques :
+S3 = Stockage de fichiers (non structuré).C’est du stockage d’objets → tu mets des fichiers (appelés objets) dans des buckets.
 
-Stocke les données en tables et colonnes.
-
-Gère les sauvegardes automatiques, la haute disponibilité, la réplication.
-
-Accès uniquement via une connexion réseau (port 3306 pour MySQL).
-
-Optimisé pour des applications transactionnelles (sites web, ERP, CRM).
-
-3. Résumé de la différence
-
-S3 = Stockage de fichiers (non structuré).
+Chaque objet a un ID (clé) et des métadonnées, mais tu ne peux pas faire de requêtes comme SELECT ou WHERE.
+Je pourrais l’utiliser comme une sorte de "base NoSQL" si tu ajoutes une autre couche (par exemple : Amazon Athena pour faire des requêtes SQL sur des fichiers CSV/Parquet dans S3, ou DynamoDB qui est le vrai service NoSQL d’AWS).
 
 RDS = Base de données relationnelle (structurée en tables).
 
 👉 Exemple concret avec ton projet :
 
 Tu vas mettre ton code PHP et ton dump SQL dans S3 pour que tes instances EC2 puissent les récupérer facilement.
-
 Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton site (tables, statistiques, comptes, etc.).
+
+
+
 ✅
-High Availability
+👉 High Availability
 •	Traffic distribution via ALB.
 •	Automatic scaling via ASG
 •	RDS optionally in Multi-AZ.
 
-Security
+👉 Security
 •	Application and DB instances in private subnets.
 •	Strictly configured security groups (public ALB → private EC2 → RDS).
 •	Secrets management via AWS Secrets Manager.
@@ -82,7 +134,7 @@ Security
 •	Scalable architecture to integrate caches (ElastiCache) or a CDN (CloudFront).
 
 
-Data Import
+👉 Data Import
 •	Upload the SQL dump to S3.
 •	Download via EC2.
 •	Import into RDS with MySQL.
