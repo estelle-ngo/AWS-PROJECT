@@ -20,18 +20,14 @@ Le VPC permet de créer ton propre réseau privé dans AWS, comme si tu construi
 
 ✅  Application Layer: Auto Scaling Group of EC2 instances (Amazon Linux 2023) in private subnets.
 
-
 Ce sont les serveurs applicatifs qui contiennent ton code métier (API, backend, site web, etc.).
-
 Placés dans des private subnets pour les protéger d’Internet.
-
 Seul l’ALB peut les contacter.
 
+
 Auto Scaling Group (ASG) :
-
-Ajoute ou supprime des EC2 selon la charge.
-
-Garantit toujours un nombre minimal d’instances.
+- Ajoute ou supprime des EC2 selon la charge.
+- Garantit toujours un nombre minimal d’instances.
 
 👉 Rôle : exécuter ton application web et traiter les requêtes.
 
@@ -39,17 +35,13 @@ Garantit toujours un nombre minimal d’instances.
 ✅ 	Public Layer: Application Load Balancer in public subnets.
 
 Le Load Balancer (ALB) est en front door de ton application.
-
 Placé dans des public subnets car il doit être accessible depuis Internet (HTTP/HTTPS).
-
 Il distribue le trafic vers tes instances EC2 dans les private subnets.
 
 Avantages :
 
 Sécurité → tes EC2 ne sont pas exposées directement au public.
-
 Haute disponibilité → le trafic est réparti automatiquement.
-
 Scalabilité → il s’adapte avec l’Auto Scaling Group.
 
 👉 Rôle : recevoir les requêtes Internet et les rediriger vers tes serveurs applicatifs.
@@ -59,8 +51,7 @@ Scalabilité → il s’adapte avec l’Auto Scaling Group.
 
 Située dans un public subnet.
 Donne aux instances privées (EC2 App Layer) la possibilité de sortir sur Internet (par ex. pour télécharger des updates, paquets, librairies).
-Mais Internet ne peut pas initier de connexion vers elles ( accès sortant uniquement à Internet pour tes instances privées.
-).
+Mais Internet ne peut pas initier de connexion vers elles ( accès sortant uniquement à Internet pour tes instances privées).
 
 Exemple :
 
@@ -118,7 +109,7 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 
 
 
-✅
+
 👉 High Availability
 •	Traffic distribution via ALB.
 •	Automatic scaling via ASG
