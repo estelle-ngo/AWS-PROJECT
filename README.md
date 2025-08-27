@@ -93,6 +93,7 @@ Amazon RDS est un service de Base de données relationnelle managée avec lequel
 
 
 
+<!-- 
 🔹. Résumé de la différence
 
 S3 = Stockage de fichiers (non structuré).C’est du stockage d’objets → tu mets des fichiers (appelés objets) dans des buckets.
@@ -107,6 +108,7 @@ RDS = Base de données relationnelle (structurée en tables).
 Tu vas mettre ton code PHP et ton dump SQL dans S3 pour que tes instances EC2 puissent les récupérer facilement.
 Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton site (tables, statistiques, comptes, etc.).
 
+-->
 
 
 
