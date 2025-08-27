@@ -141,18 +141,18 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 
 <b>1. Lister les ressources utilisées</b>
 
-Dans mon architecture on a:
-- Amazon VPC : gratuit (seule la data transfer coûte).
-- Subnets : gratuit.
-- Internet Gateway (IGW) : gratuit (seule la bande passante est facturée).
-- NAT Gateway : payant (par heure + par Go transféré).
-- Elastic Load Balancer (ALB) : payant (par heure + par LCU [Load Capacity Unit]).
-- EC2 instances (ASG) : facturation à l’heure/seconde + EBS (disque).
-- RDS MySQL : payant (instance + stockage + IOPS).
-- Amazon S3 : payant (stockage + requêtes).
-- Secrets Manager : payant (par secret stocké + appels API).
-- Route 53 : payant (zones hébergées + requêtes DNS).
 
+In my architecture, we have:
+- Amazon VPC: free (only data transfer costs).
+- Subnets: free.
+- Internet Gateway (IGW): free (only bandwidth is charged).
+- NAT Gateway: paid (per hour + per GB transferred).
+- Elastic Load Balancer (ALB): paid (per hour + per LCU [Load Capacity Unit]).
+- EC2 instances (ASG): billed by the hour/second + EBS (disk).
+- RDS MySQL: paid (instance + storage + IOPS).
+- Amazon S3: paid (storage + queries).
+- Secrets Manager: paid (per stored secret + API calls).
+- Route 53: paid (hosted zones + DNS queries).
 
 <b> 2. AWS Pricing Calculator (outil officiel AWS)</b>
 
