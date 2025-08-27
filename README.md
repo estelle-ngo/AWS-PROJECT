@@ -6,7 +6,8 @@ Introduction
 The project involves deploying an existing PHP application on AWS while adhering to security, availability, and scalability best practices. The goal is to ensure a publicly accessible website while protecting backend systems.
 
 <b> Architecture </b>
-✅ Rôle du VPC :
+
+✅ Rôle du VPC : <br>
 Le VPC permet de créer ton propre réseau privé dans AWS, comme si tu construisais ton propre centre de données dans le cloud, 
  Ce qu’on y fait : 
  - Créer un réseau isolé avec des plages IP personnalisées
@@ -146,10 +147,8 @@ Dans mon architecture on a:
 - Secrets Manager : payant (par secret stocké + appels API).
 - Route 53 : payant (zones hébergées + requêtes DNS).
 
-/n
 
 <b> 2. AWS Pricing Calculator (outil officiel AWS)</b>
-
 
 
 Service	                                         Prix_unitaire_mensuel (€)     	Quantité	                    Coût_total_estime (€)
@@ -164,9 +163,10 @@ Route 53 (1 zone + requêtes)	                                    0,5           
 TOTAL			194,8<img width="611" height="180" alt="image" src="https://github.com/user-attachments/assets/26622681-2e9f-4c81-8769-6637871c2f47" />
 
 
-Diagram architechture
+<b>Diagram architechture</b>
 
 <img width="465" height="452" alt="Capoiu" src="https://github.com/user-attachments/assets/8de22f52-a942-4938-9c1e-e6dbec7c8a1c" />
 
-Conclusion /n
+Conclusion 
+
 The solution meets the project's objectives: it is highly available, secure, and scalable. The proposed design provides a solid foundation for deploying the PHP application on AWS.
