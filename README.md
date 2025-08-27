@@ -5,16 +5,15 @@ Introduction
 
 The project involves deploying an existing PHP application on AWS while adhering to security, availability, and scalability best practices. The goal is to ensure a publicly accessible website while protecting backend systems.
 
-Architecture
-
+<b> Architecture </b>
 ✅ Rôle du VPC :
 Le VPC permet de créer ton propre réseau privé dans AWS, comme si tu construisais ton propre centre de données dans le cloud, 
- Ce qu’on y fait :
- •	Créer un réseau isolé avec des plages IP personnalisées
- •	Définir des sous-réseaux(subnets) publics et privés
- •	Contrôler l’accès à Internet (via Internet Gateway ou NAT Gateway)/Des passerelles
- •	Gérer les routes et la communication entre les ressources
- •	Appliquer des groupes de sécurité/ règles de sécurité et ACLs
+ Ce qu’on y fait : 
+ - Créer un réseau isolé avec des plages IP personnalisées
+ - Définir des sous-réseaux(subnets) publics et privés
+ - Contrôler l’accès à Internet (via Internet Gateway ou NAT Gateway)/Des passerelles
+ - 	Gérer les routes et la communication entre les ressources
+ - 		Appliquer des groupes de sécurité/ règles de sécurité et ACLs
 
 👉 Tous les services AWS comme EC2, RDS, Lambda peuvent être déployés dans un VPC.
 
@@ -148,7 +147,7 @@ Dans mon architecture on a:
 
 
 
-👉 AWS Pricing Calculator (outil officiel AWS)
+👉<b>> AWS Pricing Calculator (outil officiel AWS)</b>
 
 
 
