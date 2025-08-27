@@ -116,25 +116,24 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 
 
 
-👉 High Availability
-•	Traffic distribution via ALB.
-•	Automatic scaling via ASG
-•	RDS optionally in Multi-AZ.
+👉 Haute disponibilité
+• Distribution du trafic via ALB.
+• Mise à l'échelle automatique via ASG
+• RDS en option en multi-AZ.
 
-👉 Security
-•	Application and DB instances in private subnets.
-•	Strictly configured security groups (public ALB → private EC2 → RDS).
-•	Secrets management via AWS Secrets Manager.
-•	Use of IAM Roles for controlled access to AWS services.
-•	Scalability
-•	Auto-scaling based on metrics (e.g., CPU > 70%).
-•	Scalable architecture to integrate caches (ElastiCache) or a CDN (CloudFront).
+👉 Sécurité
+• Instances d'application et de base de données dans des sous-réseaux privés.
+• Groupes de sécurité strictement configurés (ALB public → EC2 privé → RDS).
+• Gestion des secrets via AWS Secrets Manager.
+• Utilisation des rôles IAM pour un accès contrôlé aux services AWS.
+• Évolutivité
+• Mise à l'échelle automatique basée sur des métriques (par exemple, CPU > 70 %).
+• Architecture évolutive pour intégrer des caches (ElastiCache) ou un CDN (CloudFront).
 
-
-👉 Data Import
-•	Upload the SQL dump to S3.
-•	Download via EC2.
-•	Import into RDS with MySQL.
+👉 Importation de données
+• Téléchargement du dump SQL sur S3.
+• Téléchargement via EC2.
+• Importation dans RDS avec MySQL.
 
 
 <b>🔹 Étapes pour évaluer le coût AWS</b>
@@ -142,17 +141,17 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 <b>1. Lister les ressources utilisées</b>
 
 
-In my architecture, we have:
-- Amazon VPC: free (only data transfer costs).
-- Subnets: free.
-- Internet Gateway (IGW): free (only bandwidth is charged).
-- NAT Gateway: paid (per hour + per GB transferred).
-- Elastic Load Balancer (ALB): paid (per hour + per LCU [Load Capacity Unit]).
-- EC2 instances (ASG): billed by the hour/second + EBS (disk).
-- RDS MySQL: paid (instance + storage + IOPS).
-- Amazon S3: paid (storage + queries).
-- Secrets Manager: paid (per stored secret + API calls).
-- Route 53: paid (hosted zones + DNS queries).
+Dans mon architecture, nous avons :
+- Amazon VPC : gratuit (seuls les coûts de transfert de données sont facturés).
+- Sous-réseaux : gratuits.
+- Passerelle Internet (IGW) : gratuite (seule la bande passante est facturée).
+- Passerelle NAT : payante (par heure + par Go transféré).
+- Équilibreur de charge élastique (ALB) : payante (par heure + par LCU [Load Capacity Unit]).
+- Instances EC2 (ASG) : facturées à l’heure/seconde + EBS (disque).
+- RDS MySQL : payante (instance + stockage + IOPS).
+- Amazon S3 : payante (stockage + requêtes).
+- Secrets Manager : payante (par secret stocké + appels API).
+- Route 53 : payante (zones hébergées + requêtes DNS).
 
 <b> 2. AWS Pricing Calculator (outil officiel AWS)</b>
 
