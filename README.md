@@ -150,19 +150,7 @@ Dans mon architecture on a:
 
 👉 AWS Pricing Calculator (outil officiel AWS)
 
-Tu peux créer une simulation détaillée en ajoutant ressource par ressource :
 
-
-
-Type et taille d’instance (ex. t3.medium pour app, db.t3.medium pour MySQL).
-
-Nombre d’instances et heures d’utilisation (24/7 ou variable).
-
-Stockage (EBS, RDS, S3).
-
-Bande passante (in/out).
-
-Tu obtiendras un coût mensuel estimé.
 
 Service	                                         Prix_unitaire_mensuel (€)     	Quantité	                    Coût_total_estime (€)
 EC2 (2x t3.medium, 24/7)	                                       30                  	2                                     	60
@@ -178,6 +166,7 @@ TOTAL			194,8<img width="611" height="180" alt="image" src="https://github.com/u
 
 Diagram architechture
 
+<img width="465" height="452" alt="Capoiu" src="https://github.com/user-attachments/assets/8de22f52-a942-4938-9c1e-e6dbec7c8a1c" />
 
 Conclusion
 The solution meets the project's objectives: it is highly available, secure, and scalable. The proposed design provides a solid foundation for deploying the PHP application on AWS.
