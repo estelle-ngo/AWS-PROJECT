@@ -67,7 +67,7 @@ Sert à deux choses :
 - L’ALB dans le public subnet → reçoit du trafic entrant depuis Internet.
 - La NAT Gateway → envoie le trafic sortant vers Internet.
 
-👉 Rôle : la porte d’entrée/sortie du VPC vers Internet.
+Rôle : la porte d’entrée/sortie du VPC vers Internet.
 
 
 
@@ -101,7 +101,7 @@ Je pourrais l’utiliser comme une sorte de "base NoSQL" si tu ajoutes une autre
 
 RDS = Base de données relationnelle (structurée en tables).
 
-👉 Exemple concret avec ton projet :
+ Exemple concret avec ton projet :
 
 Tu vas mettre ton code PHP et ton dump SQL dans S3 pour que tes instances EC2 puissent les récupérer facilement.
 Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton site (tables, statistiques, comptes, etc.).
@@ -130,8 +130,9 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 •	Import into RDS with MySQL.
 
 
-🔹 Étapes pour évaluer le coût AWS
-1. Lister les ressources utilisées
+<b>🔹 Étapes pour évaluer le coût AWS</b>
+
+<b>1. Lister les ressources utilisées</b>
 
 Dans mon architecture on a:
 - Amazon VPC : gratuit (seule la data transfer coûte).
@@ -145,9 +146,9 @@ Dans mon architecture on a:
 - Secrets Manager : payant (par secret stocké + appels API).
 - Route 53 : payant (zones hébergées + requêtes DNS).
 
+/n
 
-
-👉<b>> AWS Pricing Calculator (outil officiel AWS)</b>
+<b> 2. AWS Pricing Calculator (outil officiel AWS)</b>
 
 
 
@@ -167,5 +168,5 @@ Diagram architechture
 
 <img width="465" height="452" alt="Capoiu" src="https://github.com/user-attachments/assets/8de22f52-a942-4938-9c1e-e6dbec7c8a1c" />
 
-Conclusion
+Conclusion /n
 The solution meets the project's objectives: it is highly available, secure, and scalable. The proposed design provides a solid foundation for deploying the PHP application on AWS.
