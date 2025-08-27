@@ -130,6 +130,51 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 •	Download via EC2.
 •	Import into RDS with MySQL.
 
+
+🔹 Étapes pour évaluer le coût AWS
+1. Lister les ressources utilisées
+
+Dans mon architecture on a:
+- Amazon VPC : gratuit (seule la data transfer coûte).
+- Subnets : gratuit.
+- Internet Gateway (IGW) : gratuit (seule la bande passante est facturée).
+- NAT Gateway : payant (par heure + par Go transféré).
+- Elastic Load Balancer (ALB) : payant (par heure + par LCU [Load Capacity Unit]).
+- EC2 instances (ASG) : facturation à l’heure/seconde + EBS (disque).
+- RDS MySQL : payant (instance + stockage + IOPS).
+- Amazon S3 : payant (stockage + requêtes).
+- Secrets Manager : payant (par secret stocké + appels API).
+- Route 53 : payant (zones hébergées + requêtes DNS).
+
+
+
+👉 AWS Pricing Calculator (outil officiel AWS)
+
+Tu peux créer une simulation détaillée en ajoutant ressource par ressource :
+
+
+
+Type et taille d’instance (ex. t3.medium pour app, db.t3.medium pour MySQL).
+
+Nombre d’instances et heures d’utilisation (24/7 ou variable).
+
+Stockage (EBS, RDS, S3).
+
+Bande passante (in/out).
+
+Tu obtiendras un coût mensuel estimé.
+
+Service	                                         Prix_unitaire_mensuel (€)     	Quantité	                    Coût_total_estime (€)
+EC2 (2x t3.medium, 24/7)	                                       30                  	2                                     	60
+Elastic Load Balancer (ALB)	                                    25                  	1	                                     25
+NAT Gateway                                                    	35	                  1	                                     35
+RDS MySQL (db.t3.medium)	                                       70	                  1	                                     70
+S3 (100 Go, Standard)	2,3	1	2,3
+Secrets Manager (5 secrets)	2	1	2
+Route 53 (1 zone + requêtes)	0,5	1	0,5
+TOTAL			194,8<img width="611" height="180" alt="image" src="https://github.com/user-attachments/assets/26622681-2e9f-4c81-8769-6637871c2f47" />
+
+
 Diagram architechture
 
 
