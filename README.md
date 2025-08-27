@@ -169,9 +169,10 @@ EC2 (2x t3.medium, 24/7)	                                       30              
 Elastic Load Balancer (ALB)	                                    25                  	1	                                     25
 NAT Gateway                                                    	35	                  1	                                     35
 RDS MySQL (db.t3.medium)	                                       70	                  1	                                     70
-S3 (100 Go, Standard)	2,3	1	2,3
-Secrets Manager (5 secrets)	2	1	2
-Route 53 (1 zone + requêtes)	0,5	1	0,5
+S3 (100 Go, Standard)	                                           2,3                	1                                      	2,3
+Secrets Manager (5 secrets)                                     	2                  	1                                      	2
+Route 53 (1 zone + requêtes)	                                    0,5                	1                                      	0,5
+
 TOTAL			194,8<img width="611" height="180" alt="image" src="https://github.com/user-attachments/assets/26622681-2e9f-4c81-8769-6637871c2f47" />
 
 
