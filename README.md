@@ -158,7 +158,7 @@ Dans mon architecture, nous avons :
 - Route 53 : payante (zones hébergées + requêtes DNS).
 
 <b> 2. AWS Pricing Calculator (outil officiel AWS)</b>
-
+monitoring 
 
 Service	                                         Prix_unitaire_mensuel (€)     	Quantité	                    Coût_total_estime (€)
 EC2 (2x t3.medium, 24/7)	                                       30                  	2                                     	60
@@ -172,7 +172,62 @@ Route 53 (1 zone + requêtes)	                                    0,5           
 TOTAL			194,8<img width="611" height="180" alt="image" src="https://github.com/user-attachments/assets/26622681-2e9f-4c81-8769-6637871c2f47" />
 
 
+<br>Objectif du Monitoring
 
+Surveiller l’état des ressources (RDS, EC2, ALB, Auto Scaling).
+
+Alerter en cas de problème (ex : CPU trop haut, DB en panne, instance non healthy).
+
+Analyser la performance et les logs pour l’optimisation.
+
+🛠️ Outils AWS à utiliser
+1. Amazon CloudWatch Metrics
+
+Surveille :
+
+EC2 → CPU, mémoire (via CloudWatch Agent), disque.
+
+RDS → Connections, IOPS, Latency, FreeStorage.
+
+ALB → Requêtes par seconde, Latence, Erreurs HTTP 4xx/5xx.
+
+ASG → Nombre d’instances actives.
+
+Tu peux créer des Dashboards CloudWatch qui regroupent toutes ces métriques (ex : un graphique CPU, un autre RDS connections, etc.).
+
+2. Amazon CloudWatch Alarms
+
+Configure des alertes, par exemple :
+
+Si CPU d’une instance > 80% pendant 5 minutes.
+
+Si connexions RDS dépassent un certain seuil.
+
+Si toutes les instances d’un Target Group deviennent unhealthy.
+
+Les alarmes déclenchent une action → SNS (Simple Notification Service) pour envoyer un email ou SMS.
+
+3. CloudWatch Logs
+
+Active CloudWatch Agent sur tes EC2 pour collecter :
+
+Logs Apache (/var/log/httpd/access_log, error_log).
+
+Logs applicatifs PHP.
+
+Ça te permet d’analyser les erreurs applicatives et les accès.
+
+4. AWS X-Ray (optionnel, bonus)
+
+Si tu veux aller plus loin, tu peux tracer les requêtes dans ton application PHP → voir les goulots d’étranglement (latence SQL, appels lents).
+
+🖼️ Architecture avec Monitoring ajouté
+
+CloudWatch collecte les métriques (EC2, RDS, ALB, ASG).
+
+CloudWatch Logs reçoit les logs Apache & PHP.
+
+CloudWatch Alarms + SNS envoient des alertes mail/sms.
 
 Conclusion 
 
