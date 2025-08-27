@@ -33,7 +33,7 @@ Auto Scaling Group (ASG) :
 - Ajoute ou supprime des EC2 selon la charge.
 - Garantit toujours un nombre minimal d’instances.
 
-👉 Rôle : exécuter ton application web et traiter les requêtes.
+👉 Rôle : exécuter mon application web et traiter les requêtes.
 
 
 ✅ 	Public Layer: Application Load Balancer in public subnets.
@@ -57,11 +57,12 @@ Située dans un public subnet.
 Donne aux instances privées (EC2 App Layer) la possibilité de sortir sur Internet (par ex. pour télécharger des updates, paquets, librairies).
 Mais Internet ne peut pas initier de connexion vers elles ( accès sortant uniquement à Internet pour tes instances privées).
 
+
+<!-- 
 Exemple :
-
-Ton serveur applicatif EC2 dans un subnet privé fait un yum update.
+mon serveur applicatif EC2 dans un subnet privé fait un yum update.
 Il passe par la route → NAT Gateway → IGW → Internet.
-
+-->
 
 ✅  IGW (Internet Gateway)
 
@@ -115,11 +116,13 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 -->
 
 
-
+<br>
 👉 Haute disponibilité
 • Distribution du trafic via ALB.
 • Mise à l'échelle automatique via ASG
 • RDS en option en multi-AZ.
+<br>
+
 
 👉 Sécurité
 • Instances d'application et de base de données dans des sous-réseaux privés.
@@ -129,12 +132,13 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 • Évolutivité
 • Mise à l'échelle automatique basée sur des métriques (par exemple, CPU > 70 %).
 • Architecture évolutive pour intégrer des caches (ElastiCache) ou un CDN (CloudFront).
+<br>
 
 👉 Importation de données
 • Téléchargement du dump SQL sur S3.
 • Téléchargement via EC2.
 • Importation dans RDS avec MySQL.
-
+<br>
 
 <b>🔹 Étapes pour évaluer le coût AWS</b>
 
