@@ -1,7 +1,7 @@
 # AWS-PROJECT
-Projet du cours sur le cloud AWS
 
-Introduction
+
+<b>Introduction</b>
 
 The project involves deploying an existing PHP application on AWS while adhering to security, availability, and scalability best practices. The goal is to ensure a publicly accessible website while protecting backend systems.
 
@@ -13,8 +13,8 @@ Le VPC permet de créer ton propre réseau privé dans AWS, comme si tu construi
  - Créer un réseau isolé avec des plages IP personnalisées
  - Définir des sous-réseaux(subnets) publics et privés
  - Contrôler l’accès à Internet (via Internet Gateway ou NAT Gateway)/Des passerelles
- - 	Gérer les routes et la communication entre les ressources
- - 		Appliquer des groupes de sécurité/ règles de sécurité et ACLs
+ - Gérer les routes et la communication entre les ressources
+ - appliquer des groupes de sécurité/ règles de sécurité et ACLs
 
 👉 Tous les services AWS comme EC2, RDS, Lambda peuvent être déployés dans un VPC.
 
