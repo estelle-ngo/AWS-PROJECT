@@ -5,7 +5,11 @@
 
 The project involves deploying an existing PHP application on AWS while adhering to security, availability, and scalability best practices. The goal is to ensure a publicly accessible website while protecting backend systems.
 
-<b> Architecture </b>
+<b>Diagram architechture</b>
+
+<img width="465" height="452" alt="Capoiu" src="https://github.com/user-attachments/assets/8de22f52-a942-4938-9c1e-e6dbec7c8a1c" />
+
+<br> <b> Architecture </b>
 
 ✅ Rôle du VPC : <br>
 Le VPC permet de créer ton propre réseau privé dans AWS, comme si tu construisais ton propre centre de données dans le cloud, 
@@ -165,9 +169,7 @@ Route 53 (1 zone + requêtes)	                                    0,5           
 TOTAL			194,8<img width="611" height="180" alt="image" src="https://github.com/user-attachments/assets/26622681-2e9f-4c81-8769-6637871c2f47" />
 
 
-<b>Diagram architechture</b>
 
-<img width="465" height="452" alt="Capoiu" src="https://github.com/user-attachments/assets/8de22f52-a942-4938-9c1e-e6dbec7c8a1c" />
 
 Conclusion 
 
