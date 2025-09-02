@@ -174,13 +174,10 @@ Route 53 (1 zone + requêtes)	                                    0,5           
 TOTAL			194,8<img width="611" height="180" alt="image" src="https://github.com/user-attachments/assets/26622681-2e9f-4c81-8769-6637871c2f47" />
 
 
+<br>
+🛠️ <b>Monitoring et Observabilité</b>
+
 <br>Objectif du Monitoring
-
-
-🛠️ Monitoring et Observabilité
-
-
-Objectif du Monitoring
 
 - Surveiller l’état des ressources (RDS, EC2, ALB, Auto Scaling).
 
@@ -189,7 +186,7 @@ Objectif du Monitoring
 - Analyser la performance et les logs pour l’optimisation.
 
 
-
+<br>
 Afin de garantir la disponibilité, la performance et la sécurité de l’application, une solution de monitoring a été intégrée à l’architecture à l’aide des services Amazon CloudWatch et Amazon SNS .
 
 CloudWatch Metrics :
