@@ -161,20 +161,15 @@ Dans mon architecture, nous avons :
 
 <b> 2. AWS Pricing Calculator (outil officiel AWS)monitoring</b>
  
-
-
-TOTAL			194,8<img width="611" height="180" alt="image" src="https://github.com/user-attachments/assets/26622681-2e9f-4c81-8769-6637871c2f47" />
+<img width="611" height="180" alt="image" src="https://github.com/user-attachments/assets/26622681-2e9f-4c81-8769-6637871c2f47" />
 
 
 <br>
 🛠️ <b>Monitoring et Observabilité</b>
 
 <br>Objectif du Monitoring
-
 - Surveiller l’état des ressources (RDS, EC2, ALB, Auto Scaling).
-
 - Alerter en cas de problème (ex : CPU trop haut, DB en panne, instance non healthy).
-
 - Analyser la performance et les logs pour l’optimisation.
 
 
@@ -183,37 +178,28 @@ Afin de garantir la disponibilité, la performance et la sécurité de l’appli
 
 CloudWatch Metrics :
 
-Suivi de l’utilisation CPU, mémoire, trafic réseau et état de santé des instances EC2 dans l’Auto Scaling Group.
-
-Suivi des connexions et performances de la base de données RDS (latence, nombre de connexions, espace disque, IOPS).
-
-Suivi des requêtes et latence de l’Application Load Balancer (ALB).
+- Suivi de l’utilisation CPU, mémoire, trafic réseau et état de santé des instances EC2 dans l’Auto Scaling Group.
+- Suivi des connexions et performances de la base de données RDS (latence, nombre de connexions, espace disque, IOPS).
+- Suivi des requêtes et latence de l’Application Load Balancer (ALB).
 
 CloudWatch Alarms :
 
-Création d’alarmes sur des seuils critiques (ex. CPU > 80% pendant 5 minutes, latence ALB élevée, échec de l’état de santé RDS).
-
-Déclenchement automatique de notifications.
-
-Amazon SNS (Simple Notification Service) :
-
+- Création d’alarmes sur des seuils critiques (ex. CPU > 80% pendant 5 minutes, latence ALB élevée, échec de l’état de santé RDS).
+- Déclenchement automatique de notifications.
+- Amazon SNS (Simple Notification Service) :
 Les alarmes CloudWatch envoient des alertes email/SMS via un SNS Topic configuré pour notifier l’administrateur système.
 
 CloudWatch Logs :
 
-Collecte des journaux d’accès Apache/PHP depuis les instances EC2.
-
-Stockage et analyse centralisée pour faciliter le dépannage.
-
-Mise en place de log groups par service (Application, RDS, ALB).
+- Collecte des journaux d’accès Apache/PHP depuis les instances EC2.
+- Stockage et analyse centralisée pour faciliter le dépannage.
+- Mise en place de log groups par service (Application, RDS, ALB).
 
 Bénéfices :
 
-Détection proactive des incidents (surconsommation CPU, panne DB, instance EC2 non disponible).
-
-Automatisation des actions grâce au couplage Auto Scaling + CloudWatch.
-
-Meilleure visibilité sur la santé globale du système.
+- Détection proactive des incidents (surconsommation CPU, panne DB, instance EC2 non disponible).
+- Automatisation des actions grâce au couplage Auto Scaling + CloudWatch.
+- Meilleure visibilité sur la santé globale du système.
 
 
 <br>
@@ -230,7 +216,6 @@ terraform {
 
   required_version = ">= 1.3.0"  # Assurez-vous que votre Terraform est à jour
 }
-
 
 
 provider "aws" {
