@@ -5,11 +5,12 @@
 
 Le projet consiste à déployer une application PHP existante sur AWS, en respectant les bonnes pratiques de sécurité, de disponibilité et d'évolutivité. L'objectif est de garantir l'accessibilité du site web au public tout en protégeant les systèmes back-end.
 
-<b>Diagram architechture</b>
+<h3><b>Diagram architechture</b></h3>
 
 <img width="465" height="452" alt="Capoiu" src="https://github.com/user-attachments/assets/8de22f52-a942-4938-9c1e-e6dbec7c8a1c" />
 
-<br> <b> Architecture </b>
+<br> 
+<h3><b> Architecture </b></h3>
 
 ✅ Rôle du VPC : <br>
 Le VPC permet de créer ton propre réseau privé dans AWS, comme si tu construisais ton propre centre de données dans le cloud, 
@@ -84,6 +85,7 @@ Rôle : la porte d’entrée/sortie du VPC vers Internet.
 - Héberger du contenu statique (par exemple un site statique HTML).
 - Stocker des dumps SQL, du code, ou des fichiers à partager entre services AWS.
 Accessible via HTTP/HTTPS (API REST).
+
 
 ✅  Data Layer: Amazon RDS (Relational Database Service). MySQL in DB subnets, with credentials stored in Secrets Manager.
   
@@ -174,55 +176,8 @@ TOTAL			194,8<img width="611" height="180" alt="image" src="https://github.com/u
 
 <br>Objectif du Monitoring
 
-Surveiller l’état des ressources (RDS, EC2, ALB, Auto Scaling).
 
-Alerter en cas de problème (ex : CPU trop haut, DB en panne, instance non healthy).
-
-Analyser la performance et les logs pour l’optimisation.
-
-🛠️ Outils AWS à utiliser
-1. Amazon CloudWatch Metrics
-
-Surveille :
-
-EC2 → CPU, mémoire (via CloudWatch Agent), disque.
-
-RDS → Connections, IOPS, Latency, FreeStorage.
-
-ALB → Requêtes par seconde, Latence, Erreurs HTTP 4xx/5xx.
-
-ASG → Nombre d’instances actives.
-
-Tu peux créer des Dashboards CloudWatch qui regroupent toutes ces métriques (ex : un graphique CPU, un autre RDS connections, etc.).
-
-2. Amazon CloudWatch Alarms
-
-Configure des alertes, par exemple :
-
-Si CPU d’une instance > 80% pendant 5 minutes.
-
-Si connexions RDS dépassent un certain seuil.
-
-Si toutes les instances d’un Target Group deviennent unhealthy.
-
-Les alarmes déclenchent une action → SNS (Simple Notification Service) pour envoyer un email ou SMS.
-
-3. CloudWatch Logs
-
-Active CloudWatch Agent sur tes EC2 pour collecter :
-
-Logs Apache (/var/log/httpd/access_log, error_log).
-
-Logs applicatifs PHP.
-
-Ça te permet d’analyser les erreurs applicatives et les accès.
-
-4. AWS X-Ray (optionnel, bonus)
-
-Si tu veux aller plus loin, tu peux tracer les requêtes dans ton application PHP → voir les goulots d’étranglement (latence SQL, appels lents).
-
-
-Monitoring et Observabilité
+🛠️ Monitoring et Observabilité
 
 
 Objectif du Monitoring
@@ -232,7 +187,6 @@ Objectif du Monitoring
 - Alerter en cas de problème (ex : CPU trop haut, DB en panne, instance non healthy).
 
 - Analyser la performance et les logs pour l’optimisation.
-
 
 
 
