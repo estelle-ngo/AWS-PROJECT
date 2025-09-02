@@ -221,14 +221,221 @@ Logs applicatifs PHP.
 
 Si tu veux aller plus loin, tu peux tracer les requêtes dans ton application PHP → voir les goulots d’étranglement (latence SQL, appels lents).
 
-🖼️ Architecture avec Monitoring ajouté
 
-CloudWatch collecte les métriques (EC2, RDS, ALB, ASG).
+Monitoring et Observabilité
 
-CloudWatch Logs reçoit les logs Apache & PHP.
 
-CloudWatch Alarms + SNS envoient des alertes mail/sms.
+Objectif du Monitoring
 
+- Surveiller l’état des ressources (RDS, EC2, ALB, Auto Scaling).
+
+- Alerter en cas de problème (ex : CPU trop haut, DB en panne, instance non healthy).
+
+- Analyser la performance et les logs pour l’optimisation.
+
+
+
+
+Afin de garantir la disponibilité, la performance et la sécurité de l’application, une solution de monitoring a été intégrée à l’architecture à l’aide des services Amazon CloudWatch et Amazon SNS .
+
+CloudWatch Metrics :
+
+Suivi de l’utilisation CPU, mémoire, trafic réseau et état de santé des instances EC2 dans l’Auto Scaling Group.
+
+Suivi des connexions et performances de la base de données RDS (latence, nombre de connexions, espace disque, IOPS).
+
+Suivi des requêtes et latence de l’Application Load Balancer (ALB).
+
+CloudWatch Alarms :
+
+Création d’alarmes sur des seuils critiques (ex. CPU > 80% pendant 5 minutes, latence ALB élevée, échec de l’état de santé RDS).
+
+Déclenchement automatique de notifications.
+
+Amazon SNS (Simple Notification Service) :
+
+Les alarmes CloudWatch envoient des alertes email/SMS via un SNS Topic configuré pour notifier l’administrateur système.
+
+CloudWatch Logs :
+
+Collecte des journaux d’accès Apache/PHP depuis les instances EC2.
+
+Stockage et analyse centralisée pour faciliter le dépannage.
+
+Mise en place de log groups par service (Application, RDS, ALB).
+
+Bénéfices :
+
+Détection proactive des incidents (surconsommation CPU, panne DB, instance EC2 non disponible).
+
+Automatisation des actions grâce au couplage Auto Scaling + CloudWatch.
+
+Meilleure visibilité sur la santé globale du système.
+
+
+<br>
+<H2>CODE TERRAFORM</H2>
+creation vpc t ses sous reseaux
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"  # Compatible et disponible sur toutes les plateformes courantes
+    }
+  }
+
+  required_version = ">= 1.3.0"  # Assurez-vous que votre Terraform est à jour
+}
+
+
+
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_vpc" "main_vpc" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+  tags = {
+    Name = "hello-vpc"
+  }
+}
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main_vpc.id
+  tags = {
+    Name = "hello-igw"
+  }
+}
+
+resource "aws_subnet" "public_subnet_a" {
+  vpc_id                  = aws_vpc.main_vpc.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "us-east-1a"
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "public-subnet-a"
+  }
+}
+
+resource "aws_subnet" "public_subnet_b" {
+  vpc_id                  = aws_vpc.main_vpc.id
+  cidr_block              = "10.0.2.0/24"
+  availability_zone       = "us-east-1b"
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "public-subnet-b"
+  }
+}
+
+resource "aws_route_table" "public_rt" {
+  vpc_id = aws_vpc.main_vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
+  tags = {
+    Name = "public-route-table"
+  }
+}
+
+resource "aws_route_table_association" "public_rta_a" {
+  subnet_id      = aws_subnet.public_subnet_a.id
+  route_table_id = aws_route_table.public_rt.id
+}
+
+resource "aws_route_table_association" "public_rta_b" {
+  subnet_id      = aws_subnet.public_subnet_b.id
+  route_table_id = aws_route_table.public_rt.id
+}
+
+resource "aws_security_group" "web_sg" {
+  name        = "web-sg"
+  description = "Allow HTTP"
+  vpc_id      = aws_vpc.main_vpc.id
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "HTTP"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "web-sg"
+  }
+}
+
+resource "aws_instance" "web" {
+  ami                         = "ami-0c2b8ca1dad447f8a"
+  instance_type               = "t2.micro"
+  subnet_id                   = aws_subnet.public_subnet_a.id
+  vpc_security_group_ids      = [aws_security_group.web_sg.id]
+  associate_public_ip_address = true
+  key_name                    = "my-keypair"  # Replace with your Key pair
+  user_data                   = file("userdata.sh")
+
+  tags = {
+    Name = "hello-web"
+  }
+}
+
+resource "aws_lb" "alb" {
+  name               = "hello-alb"
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.web_sg.id]
+  subnets            = [
+    aws_subnet.public_subnet_a.id,
+    aws_subnet.public_subnet_b.id
+  ]
+  tags = {
+    Name = "hello-alb"
+  }
+}
+
+resource "aws_lb_target_group" "tg" {
+  name     = "hello-tg"
+  port     = 80
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.main_vpc.id
+  health_check {
+    path = "/"
+  }
+}
+
+resource "aws_lb_target_group_attachment" "web_attach" {
+  target_group_arn = aws_lb_target_group.tg.arn
+  target_id        = aws_instance.web.id
+  port             = 80
+}
+
+resource "aws_lb_listener" "listener" {
+  load_balancer_arn = aws_lb.alb.arn
+  port              = 80
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.tg.arn
+  }
+}
 Conclusion 
 
 The solution meets the project's objectives: it is highly available, secure, and scalable. The proposed design provides a solid foundation for deploying the PHP application on AWS.
