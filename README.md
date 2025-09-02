@@ -390,6 +390,8 @@ resource "aws_lb_listener" "listener" {
     target_group_arn = aws_lb_target_group.tg.arn
   }
 }
-Conclusion 
+
+<br>
+<b><h2>Conclusion </h2></b>
 
 The solution meets the project's objectives: it is highly available, secure, and scalable. The proposed design provides a solid foundation for deploying the PHP application on AWS.
