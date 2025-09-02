@@ -1,7 +1,7 @@
 # AWS-PROJECT
 
 
-<b>Introduction</b>
+<h4><b>Introduction</b></h4>
 
 Le projet consiste à déployer une application PHP existante sur AWS, en respectant les bonnes pratiques de sécurité, de disponibilité et d'évolutivité. L'objectif est de garantir l'accessibilité du site web au public tout en protégeant les systèmes back-end.
 
