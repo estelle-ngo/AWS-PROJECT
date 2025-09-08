@@ -130,9 +130,8 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 • Distribution du trafic via ALB.
 • Mise à l'échelle automatique via ASG
 • RDS en option en multi-AZ.
+
 <br>
-
-
 👉 Sécurité
 • Instances d'application et de base de données dans des sous-réseaux privés.
 • Groupes de sécurité strictement configurés (ALB public → EC2 privé → RDS).
@@ -141,18 +140,17 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 • Évolutivité
 • Mise à l'échelle automatique basée sur des métriques (par exemple, CPU > 70 %).
 • Architecture évolutive pour intégrer des caches (ElastiCache) ou un CDN (CloudFront).
-<br>
 
+<br>
 👉 Importation de données
 • Téléchargement du dump SQL sur S3.
 • Téléchargement via EC2.
 • Importation dans RDS avec MySQL.
 <br>
 
-<b>🔹 Étapes pour évaluer le coût AWS</b>
+<H2><b> Évaluation du coût AWS</b></H2>
 
 <b>1. Lister les ressources utilisées</b>
-
 
 Dans mon architecture, nous avons :
 - Amazon VPC : gratuit (seuls les coûts de transfert de données sont facturés).
@@ -164,7 +162,10 @@ Dans mon architecture, nous avons :
 - RDS MySQL : payante (instance + stockage + IOPS).
 - Amazon S3 : payante (stockage + requêtes).
 - Secrets Manager : payante (par secret stocké + appels API).
+  
+<!--   
 - Route 53 : payante (zones hébergées + requêtes DNS).
+-->
 
 <b> 2. AWS Pricing Calculator (outil officiel AWS)monitoring</b>
  
@@ -172,7 +173,7 @@ Dans mon architecture, nous avons :
 
 
 <br>
-🛠️ <b>Monitoring et Observabilité</b>
+🛠️ <H2><b>Monitoring et Observabilité</b></H2>
 
 <br>Objectif du Monitoring
 - Surveiller l’état des ressources (RDS, EC2, ALB, Auto Scaling).
@@ -193,7 +194,9 @@ CloudWatch Alarms :
 
 - Création d’alarmes sur des seuils critiques (ex. CPU > 80% pendant 5 minutes, latence ALB élevée, échec de l’état de santé RDS).
 - Déclenchement automatique de notifications.
-- Amazon SNS (Simple Notification Service) :
+
+Amazon SNS (Simple Notification Service) :
+ 
 Les alarmes CloudWatch envoient des alertes email/SMS via un SNS Topic configuré pour notifier l’administrateur système.
 
 CloudWatch Logs :
@@ -211,7 +214,6 @@ Bénéfices :
 
 <br>
 <H2>CODE TERRAFORM</H2>
-creation vpc t ses sous reseaux
 
 terraform {
   required_providers {
