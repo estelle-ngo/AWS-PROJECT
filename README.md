@@ -105,10 +105,27 @@ Amazon RDS est un service de Base de données relationnelle managée avec lequel
 
  Accès uniquement via une connexion réseau (port 3306 pour MySQL).
 
+✅Rôle de Secrets Manager 
 
+AWS Secrets Manager est un service géré qui stocke et protège les informations sensibles comme :
+
+les identifiants de connexion MySQL (nom d’utilisateur, mot de passe, host, port, nom de la base), éventuellement d’autres secrets applicatifs (API keys, tokens, etc.)
+
+ dans ce projet, il va:
+
+ sécurisé le Stockage:
+→ Au lieu d’écrire le mot de passe MySQL dans ton code PHP ou dans un fichier de config, tu le mets dans Secrets Manager.
+
+ contrôler l' Accès via IAM :
+→ Tes instances EC2 ont un IAM Role qui leur permet d’appeler Secrets Manager.
+→ Résultat : seules tes EC2 peuvent récupérer ces infos, pas les utilisateurs finaux.
+
+faire une rotation automatique des credentials (optionnel mais recommandé) :
+→ Secrets Manager peut changer régulièrement le mot de passe MySQL sans qu'on ne modifie son application.
+→ Ça améliore la sécurité contre les fuites.
 
 <!-- 
-🔹. Résumé de la différence
+🎯Résumé de la différence
 
 S3 = Stockage de fichiers (non structuré).C’est du stockage d’objets → tu mets des fichiers (appelés objets) dans des buckets.
 
@@ -121,7 +138,7 @@ RDS = Base de données relationnelle (structurée en tables).
 
 Tu vas mettre ton code PHP et ton dump SQL dans S3 pour que tes instances EC2 puissent les récupérer facilement.
 Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton site (tables, statistiques, comptes, etc.).
-
+🎯
 -->
 
 
