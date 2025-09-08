@@ -1,34 +1,32 @@
 # AWS-PROJECT
 
 
-<h3><b>Introduction</b></h3>
+<h3><b>🔹Introduction</b></h3>
 
 Le projet consiste à déployer une application PHP existante sur AWS, en respectant les bonnes pratiques de sécurité, de disponibilité et d'évolutivité. L'objectif est de garantir l'accessibilité du site web au public tout en protégeant les systèmes back-end.
 
-<h3><b>Diagram architechture</b></h3>
+<h3><b>🔹Diagramme architechturale</b></h3>
 
 <img width="465" height="452" alt="Capoiu" src="https://github.com/user-attachments/assets/8de22f52-a942-4938-9c1e-e6dbec7c8a1c" />
 
 <br> 
-<h3><b> Architecture </b></h3>
+<h3><b>🔹Documentation technique </b></h3>
+Nous allons décrire chaque composant et justifier leur choix.
 
 ✅ Rôle du VPC : <br>
-Le VPC permet de créer ton propre réseau privé dans AWS, comme si tu construisais ton propre centre de données dans le cloud, 
- Ce qu’on y fait : 
+Le VPC permet de créer son propre réseau privé dans AWS, comme si on construisait notre propre centre de données dans le cloud. 
+ Ce qu’on y fait :
  - Créer un réseau isolé avec des plages IP personnalisées
  - Définir des sous-réseaux(subnets) publics et privés
  - Contrôler l’accès à Internet (via Internet Gateway ou NAT Gateway)/Des passerelles
  - Gérer les routes et la communication entre les ressources
  - appliquer des groupes de sécurité/ règles de sécurité et ACLs
 
-👉 Tous les services AWS comme EC2, RDS, Lambda peuvent être déployés dans un VPC.
 
 ✅  Application Layer: Auto Scaling Group of EC2 instances (Amazon Linux 2023) in private subnets.
-
-Ce sont les serveurs applicatifs qui contiennent ton code métier (API, backend, site web, etc.).
+Ce sont les serveurs applicatifs qui contiennent le code métier (API, backend, site web, etc.).
 Placés dans des private subnets pour les protéger d’Internet.
 Seul l’ALB peut les contacter.
-
 
 Auto Scaling Group (ASG) :
 - Ajoute ou supprime des EC2 selon la charge.
@@ -39,13 +37,13 @@ Auto Scaling Group (ASG) :
 
 ✅ 	Public Layer: Application Load Balancer in public subnets.
 
-Le Load Balancer (ALB) est en front door de ton application.
-Placé dans des public subnets car il doit être accessible depuis Internet (HTTP/HTTPS).
-Il distribue le trafic vers tes instances EC2 dans les private subnets.
+Le Load Balancer (ALB) est en front door de notre application.
+Placé dans des public subnets car il doit être accessible depuis Internet (HTTP/HTTPS). (Dans notre cas le  HTTPS ne sera pas utilisé, ni de domaine) 
+Il distribue le trafic vers les instances EC2 dans les private subnets.
 
 Avantages :
 
-Sécurité → tes EC2 ne sont pas exposées directement au public.
+Sécurité → les EC2 ne sont pas exposées directement au public.
 Haute disponibilité → le trafic est réparti automatiquement.
 Scalabilité → il s’adapte avec l’Auto Scaling Group.
 
@@ -54,12 +52,21 @@ Scalabilité → il s’adapte avec l’Auto Scaling Group.
 
 ✅  	Connectivity: NAT Gateway for updates from private instances.
 
+c’est un service managé (donc fourni et géré par AWS) qui utilise la technique du NAT (Network Address Translation)
+
 Située dans un public subnet.
 Donne aux instances privées (EC2 App Layer) la possibilité de sortir sur Internet (par ex. pour télécharger des updates, paquets, librairies).
 Mais Internet ne peut pas initier de connexion vers elles ( accès sortant uniquement à Internet pour tes instances privées).
 
-
 <!-- 
+NAT (la technique) :
+C’est le mécanisme réseau qui permet de traduire des adresses IP privées en adresses IP publiques (et inversement) pour que des machines privées puissent accéder à Internet, sans être directement exposées.
+
+NAT Gateway (dans AWS) :
+👉 C’est une ressource virtuelle (un service managé par AWS) qui applique cette technique de NAT.
+👉 Tu le déploies dans un subnet public avec une Elastic IP (EIP).
+👉 Les instances dans les subnets privés passent par lui pour sortir sur Internet (ex : télécharger des mises à jour, accéder à des dépôts, etc.), mais elles ne sont pas accessibles depuis l’extérieur.
+
 Exemple :
 mon serveur applicatif EC2 dans un subnet privé fait un yum update.
 Il passe par la route → NAT Gateway → IGW → Internet.
