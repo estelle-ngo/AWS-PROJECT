@@ -140,7 +140,7 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 - Architecture évolutive pour intégrer des caches (ElastiCache) ou un CDN (CloudFront).
 
 <br>
-👉 Importation de données: 
+👉 Importation de données:  
 - Téléchargement du dump SQL sur S3.
 - Téléchargement via EC2.
 - Importation dans RDS avec MySQL.
@@ -172,7 +172,7 @@ Dans mon architecture, nous avons :
 <br>
 <H2>🛠️<b>Monitoring et Observabilité</b></H2>
 
-Objectif du Monitoring
+L'objectif du Monitoring est: 
 - Surveiller l’état des ressources (RDS, EC2, ALB, Auto Scaling).
 - Alerter en cas de problème (ex : CPU trop haut, DB en panne, instance non healthy).
 - Analyser la performance et les logs pour l’optimisation.
@@ -188,7 +188,7 @@ Afin de garantir la disponibilité, la performance et la sécurité de l’appli
 - Création d’alarmes sur des seuils critiques (ex. CPU > 80% pendant 5 minutes, latence ALB élevée, échec de l’état de santé RDS).
 - Déclenchement automatique de notifications.
 
-👉Amazon SNS (Simple Notification Service) :<br>
+👉Amazon SNS (Simple Notification Service) : 
 Les alarmes CloudWatch envoient des alertes email/SMS via un SNS Topic configuré pour notifier l’administrateur système.
 
 👉CloudWatch Logs :
