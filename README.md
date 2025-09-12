@@ -1,6 +1,7 @@
 # AWS-PROJECT
 
-
+<pre>
+ 
 <h3><b>🔹Introduction</b></h3>
 
 Le projet consiste à déployer une application PHP existante sur AWS, en respectant les bonnes pratiques de sécurité, de disponibilité et d'évolutivité. L'objectif est de garantir l'accessibilité du site web au public tout en protégeant les systèmes back-end.
@@ -43,18 +44,16 @@ Il distribue le trafic vers les instances EC2 dans les private subnets.
 
 Avantages :
 
-Sécurité → les EC2 ne sont pas exposées directement au public.
-Haute disponibilité → le trafic est réparti automatiquement.
-Scalabilité → il s’adapte avec l’Auto Scaling Group.
+- Sécurité → les EC2 ne sont pas exposées directement au public.
+- Haute disponibilité → le trafic est réparti automatiquement.
+- Scalabilité → il s’adapte avec l’Auto Scaling Group.
 
 👉 Rôle : recevoir les requêtes Internet et les rediriger vers tes serveurs applicatifs.
 
 
 ✅  	Connectivity: NAT Gateway for updates from private instances.
 
-c’est un service managé (donc fourni et géré par AWS) qui utilise la technique du NAT (Network Address Translation)
-
-Située dans un public subnet.
+c’est un service managé (donc fourni et géré par AWS) qui utilise la technique du NAT (Network Address Translation) Située dans un public subnet.
 Donne aux instances privées (EC2 App Layer) la possibilité de sortir sur Internet (par ex. pour télécharger des updates, paquets, librairies).
 Mais Internet ne peut pas initier de connexion vers elles ( accès sortant uniquement à Internet pour tes instances privées).
 
@@ -82,7 +81,6 @@ Sert à deux choses :
 - La NAT Gateway → envoie le trafic sortant vers Internet.
 
 Rôle : la porte d’entrée/sortie du VPC vers Internet.
-
 
 
 ✅  Amazon S3 (Simple Storage Service)  Type de service: Stockage d’objets.
@@ -135,7 +133,6 @@ Je pourrais l’utiliser comme une sorte de "base NoSQL" si tu ajoutes une autre
 RDS = Base de données relationnelle (structurée en tables).
 
  Exemple concret avec ton projet :
-
 Tu vas mettre ton code PHP et ton dump SQL dans S3 pour que tes instances EC2 puissent les récupérer facilement.
 Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton site (tables, statistiques, comptes, etc.).
 🎯
@@ -228,6 +225,11 @@ Bénéfices :
 - Automatisation des actions grâce au couplage Auto Scaling + CloudWatch.
 - Meilleure visibilité sur la santé globale du système.
 
+</pre>
+
+
+<pre> 
+ ```hcl
 
 <br>
 <H2>CODE TERRAFORM</H2>
@@ -730,7 +732,7 @@ output "secrets_arn" {
   sensitive   = false
 }
 ```
-
+<pre> 
 <br>
 <b><h2>Conclusion </h2></b>
 
