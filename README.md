@@ -703,10 +703,10 @@ output "secrets_arn" {
   value       = aws_secretsmanager_secret.db_secret.arn
   sensitive   = false
 }
+
 ```
  </pre>
 
 <br>
-<b><h2>Conclusion </h2></b>
-
+<b><h2>Conclusion </h2></b><br>
 La solution proposée satisfait pleinement aux objectifs du projet : elle garantit une haute disponibilité, un niveau de sécurité renforcé ainsi qu’une capacité d’évolution optimale. L’architecture retenue constitue ainsi une base robuste et fiable pour le déploiement de l’application PHP sur AWS.
