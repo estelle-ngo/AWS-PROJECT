@@ -188,7 +188,7 @@ Afin de garantir la disponibilité, la performance et la sécurité de l’appli
 - Création d’alarmes sur des seuils critiques (ex. CPU > 80% pendant 5 minutes, latence ALB élevée, échec de l’état de santé RDS).
 - Déclenchement automatique de notifications.
 
-👉Amazon SNS (Simple Notification Service) : 
+👉Amazon SNS (Simple Notification Service) : <br> 
 Les alarmes CloudWatch envoient des alertes email/SMS via un SNS Topic configuré pour notifier l’administrateur système.
 
 👉CloudWatch Logs :
@@ -708,4 +708,4 @@ output "secrets_arn" {
 <br>
 <b><h2>Conclusion </h2></b>
 
-The solution meets the project's objectives: it is highly available, secure, and scalable. The proposed design provides a solid foundation for deploying the PHP application on AWS.
+La solution proposée satisfait pleinement aux objectifs du projet : elle garantit une haute disponibilité, un niveau de sécurité renforcé ainsi qu’une capacité d’évolution optimale. L’architecture retenue constitue ainsi une base robuste et fiable pour le déploiement de l’application PHP sur AWS.
