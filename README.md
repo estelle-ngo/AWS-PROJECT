@@ -51,20 +51,17 @@ c’est un service managé (donc fourni et géré par AWS) qui utilise la techni
 Donne aux instances privées (EC2 App Layer) la possibilité de sortir sur Internet (par ex. pour télécharger des updates, paquets, librairies).
 Mais Internet ne peut pas initier de connexion vers elles ( accès sortant uniquement à Internet pour tes instances privées).
 
-<!-- 
+<!--🎯 
 NAT (la technique) :
 C’est le mécanisme réseau qui permet de traduire des adresses IP privées en adresses IP publiques (et inversement) pour que des machines privées puissent accéder à Internet, sans être directement exposées.
-
 NAT Gateway (dans AWS) :
 👉 C’est une ressource virtuelle (un service managé par AWS) qui applique cette technique de NAT.
 👉 Tu le déploies dans un subnet public avec une Elastic IP (EIP).
 👉 Les instances dans les subnets privés passent par lui pour sortir sur Internet (ex : télécharger des mises à jour, accéder à des dépôts, etc.), mais elles ne sont pas accessibles depuis l’extérieur.
-
 Exemple :
 mon serveur applicatif EC2 dans un subnet privé fait un yum update.
 Il passe par la route → NAT Gateway → IGW → Internet.
--->
-
+🎯-->
 ✅  IGW (Internet Gateway)
 
 Attachée au VPC.
@@ -101,35 +98,26 @@ AWS Secrets Manager est un service géré qui stocke et protège les information
 les identifiants de connexion MySQL (nom d’utilisateur, mot de passe, host, port, nom de la base), éventuellement d’autres secrets applicatifs (API keys, tokens, etc.)
 
 Dans ce projet, il va:
-
 -  sécurisé le Stockage:
  Au lieu d’écrire le mot de passe MySQL dans ton code PHP ou dans un fichier de config, tu le mets dans Secrets Manager.
-
 -  contrôler l' Accès via IAM :
-Tes instances EC2 ont un IAM Role qui leur permet d’appeler Secrets Manager.
-→ Résultat : seules tes EC2 peuvent récupérer ces infos, pas les utilisateurs finaux.
-
-faire une rotation automatique des credentials (optionnel mais recommandé) :
-→ Secrets Manager peut changer régulièrement le mot de passe MySQL sans qu'on ne modifie son application.
-→ Ça améliore la sécurité contre les fuites.
+Les instances EC2 ont un IAM Role qui leur permet d’appeler Secrets Manager. Résultat? Seules Les EC2 peuvent récupérer ces infos, pas les utilisateurs finaux.
+- faire une rotation automatique des credentials (optionnel mais recommandé) :
+Secrets Manager peut changer régulièrement le mot de passe MySQL sans qu'on ne modifie son application. Ça améliore la sécurité contre les fuites.
 
 <!-- 
 🎯Résumé de la différence
-
 S3 = Stockage de fichiers (non structuré).C’est du stockage d’objets → tu mets des fichiers (appelés objets) dans des buckets.
 
 Chaque objet a un ID (clé) et des métadonnées, mais tu ne peux pas faire de requêtes comme SELECT ou WHERE.
 Je pourrais l’utiliser comme une sorte de "base NoSQL" si tu ajoutes une autre couche (par exemple : Amazon Athena pour faire des requêtes SQL sur des fichiers CSV/Parquet dans S3, ou DynamoDB qui est le vrai service NoSQL d’AWS).
 
 RDS = Base de données relationnelle (structurée en tables).
-
  Exemple concret avec ton projet :
 Tu vas mettre ton code PHP et ton dump SQL dans S3 pour que tes instances EC2 puissent les récupérer facilement.
 Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton site (tables, statistiques, comptes, etc.).
 🎯
 -->
-
-
 <br>
 👉 Haute disponibilité
 • Distribution du trafic via ALB.
@@ -168,50 +156,42 @@ Dans mon architecture, nous avons :
 - Amazon S3 : payante (stockage + requêtes).
 - Secrets Manager : payante (par secret stocké + appels API).
   
-<!--   
+<!-- 🎯<br>  
 - Route 53 : payante (zones hébergées + requêtes DNS).
--->
+🎯-->
 
 <b> 2. AWS Pricing Calculator (outil officiel AWS)monitoring</b>
  
 <img width="611" height="180" alt="image" src="https://github.com/user-attachments/assets/26622681-2e9f-4c81-8769-6637871c2f47" />
 
-
 <br>
-🛠️ <H2><b>Monitoring et Observabilité</b></H2>
+<H2>🛠️<b>Monitoring et Observabilité</b></H2>
 
-<br>Objectif du Monitoring
+Objectif du Monitoring
 - Surveiller l’état des ressources (RDS, EC2, ALB, Auto Scaling).
 - Alerter en cas de problème (ex : CPU trop haut, DB en panne, instance non healthy).
 - Analyser la performance et les logs pour l’optimisation.
-
-
-<br>
+ 
 Afin de garantir la disponibilité, la performance et la sécurité de l’application, une solution de monitoring a été intégrée à l’architecture à l’aide des services Amazon CloudWatch et Amazon SNS .
 
-CloudWatch Metrics :
-
+👉CloudWatch Metrics :
 - Suivi de l’utilisation CPU, mémoire, trafic réseau et état de santé des instances EC2 dans l’Auto Scaling Group.
 - Suivi des connexions et performances de la base de données RDS (latence, nombre de connexions, espace disque, IOPS).
 - Suivi des requêtes et latence de l’Application Load Balancer (ALB).
 
-CloudWatch Alarms :
-
+👉CloudWatch Alarms :
 - Création d’alarmes sur des seuils critiques (ex. CPU > 80% pendant 5 minutes, latence ALB élevée, échec de l’état de santé RDS).
 - Déclenchement automatique de notifications.
 
-Amazon SNS (Simple Notification Service) :
- 
+👉Amazon SNS (Simple Notification Service) :
 Les alarmes CloudWatch envoient des alertes email/SMS via un SNS Topic configuré pour notifier l’administrateur système.
 
-CloudWatch Logs :
-
+👉CloudWatch Logs :
 - Collecte des journaux d’accès Apache/PHP depuis les instances EC2.
 - Stockage et analyse centralisée pour faciliter le dépannage.
 - Mise en place de log groups par service (Application, RDS, ALB).
 
 Bénéfices :
-
 - Détection proactive des incidents (surconsommation CPU, panne DB, instance EC2 non disponible).
 - Automatisation des actions grâce au couplage Auto Scaling + CloudWatch.
 - Meilleure visibilité sur la santé globale du système.
@@ -219,7 +199,7 @@ Bénéfices :
 </pre>
 
 
-<pre> 
+
  ```hcl
 
 <br>
