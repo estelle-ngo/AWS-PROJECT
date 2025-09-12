@@ -140,7 +140,8 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 - Architecture évolutive pour intégrer des caches (ElastiCache) ou un CDN (CloudFront).
 
 <br>
-👉 Importation de données:  
+👉 Importation de données:   
+
 - Téléchargement du dump SQL sur S3.
 - Téléchargement via EC2.
 - Importation dans RDS avec MySQL.
