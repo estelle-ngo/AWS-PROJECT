@@ -1,5 +1,4 @@
 # AWS-PROJECT
-<pre>
 
 <h3><b>🔹Introduction</b></h3>
 Le projet consiste à déployer une application PHP existante sur AWS, en respectant les bonnes pratiques de sécurité, de disponibilité et d'évolutivité.
@@ -96,8 +95,7 @@ des commandes, des statistiques).
 ✅Rôle de Secrets Manager 
 
 AWS Secrets Manager est un service géré qui stocke et protège les informations sensibles comme :
-les identifiants de connexion MySQL (nom d’utilisateur, mot de passe, host, port, nom de la base), éventuellement d’autres secrets applicatifs
- (API keys, tokens, etc.)
+les identifiants de connexion MySQL (nom d’utilisateur, mot de passe, host, port, nom de la base), éventuellement d’autres secrets applicatifs (API keys, tokens, etc.)
 
 Dans ce projet, il va:
 -  sécurisé le Stockage:
@@ -176,8 +174,7 @@ Objectif du Monitoring
 - Alerter en cas de problème (ex : CPU trop haut, DB en panne, instance non healthy).
 - Analyser la performance et les logs pour l’optimisation.
  
-Afin de garantir la disponibilité, la performance et la sécurité de l’application, une solution de monitoring a été intégrée à l’architecture à
- l’aide des services Amazon CloudWatch et Amazon SNS .
+Afin de garantir la disponibilité, la performance et la sécurité de l’application, une solution de monitoring a été intégrée à l’architecture à l’aide des services Amazon CloudWatch et Amazon SNS .
 
 👉CloudWatch Metrics :
 - Suivi de l’utilisation CPU, mémoire, trafic réseau et état de santé des instances EC2 dans l’Auto Scaling Group.
@@ -200,11 +197,10 @@ Bénéfices :
 - Détection proactive des incidents (surconsommation CPU, panne DB, instance EC2 non disponible).
 - Automatisation des actions grâce au couplage Auto Scaling + CloudWatch.
 - Meilleure visibilité sur la santé globale du système.
-</pre>
-
 
 <br>
 <H2>CODE TERRAFORM</H2>
+ <pre>
 ```hcl
 
   terraform {
@@ -704,7 +700,8 @@ output "secrets_arn" {
   sensitive   = false
 }
 ```
- 
+ </pre>
+
 <br>
 <b><h2>Conclusion </h2></b>
 
