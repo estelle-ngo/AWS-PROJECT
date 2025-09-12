@@ -7,10 +7,8 @@
 Le projet consiste à déployer une application PHP existante sur AWS, en respectant les bonnes pratiques de sécurité, de disponibilité et d'évolutivité. L'objectif est de garantir l'accessibilité du site web au public tout en protégeant les systèmes back-end.
 
 <h3><b>🔹Diagramme architechturale</b></h3>
-
 <img width="465" height="452" alt="Capoiu" src="https://github.com/user-attachments/assets/8de22f52-a942-4938-9c1e-e6dbec7c8a1c" />
-
-<br> 
+ 
 <h3><b>🔹Documentation technique </b></h3>
 Nous allons décrire chaque composant et justifier leur choix.
 
@@ -23,7 +21,6 @@ Le VPC permet de créer son propre réseau privé dans AWS, comme si on construi
  - Gérer les routes et la communication entre les ressources
  - appliquer des groupes de sécurité/ règles de sécurité et ACLs
 
-
 ✅  Application Layer: Auto Scaling Group of EC2 instances (Amazon Linux 2023) in private subnets.
 Ce sont les serveurs applicatifs qui contiennent le code métier (API, backend, site web, etc.).
 Placés dans des private subnets pour les protéger d’Internet.
@@ -35,7 +32,6 @@ Auto Scaling Group (ASG) :
 
 👉 Rôle : exécuter mon application web et traiter les requêtes.
 
-
 ✅ 	Public Layer: Application Load Balancer in public subnets.
 
 Le Load Balancer (ALB) est en front door de notre application.
@@ -43,13 +39,11 @@ Placé dans des public subnets car il doit être accessible depuis Internet (HTT
 Il distribue le trafic vers les instances EC2 dans les private subnets.
 
 Avantages :
-
 - Sécurité → les EC2 ne sont pas exposées directement au public.
 - Haute disponibilité → le trafic est réparti automatiquement.
 - Scalabilité → il s’adapte avec l’Auto Scaling Group.
 
 👉 Rôle : recevoir les requêtes Internet et les rediriger vers tes serveurs applicatifs.
-
 
 ✅  	Connectivity: NAT Gateway for updates from private instances.
 
@@ -75,13 +69,12 @@ Il passe par la route → NAT Gateway → IGW → Internet.
 
 Attachée au VPC.
 Nécessaire pour toute communication entre le VPC et Internet.
-
+ 
 Sert à deux choses :
 - L’ALB dans le public subnet → reçoit du trafic entrant depuis Internet.
 - La NAT Gateway → envoie le trafic sortant vers Internet.
 
 Rôle : la porte d’entrée/sortie du VPC vers Internet.
-
 
 ✅  Amazon S3 (Simple Storage Service)  Type de service: Stockage d’objets.
 
@@ -90,7 +83,6 @@ Rôle : la porte d’entrée/sortie du VPC vers Internet.
 - Héberger du contenu statique (par exemple un site statique HTML).
 - Stocker des dumps SQL, du code, ou des fichiers à partager entre services AWS.
 Accessible via HTTP/HTTPS (API REST).
-
 
 ✅  Data Layer: Amazon RDS (Relational Database Service). MySQL in DB subnets, with credentials stored in Secrets Manager.
   
@@ -106,16 +98,15 @@ Amazon RDS est un service de Base de données relationnelle managée avec lequel
 ✅Rôle de Secrets Manager 
 
 AWS Secrets Manager est un service géré qui stocke et protège les informations sensibles comme :
-
 les identifiants de connexion MySQL (nom d’utilisateur, mot de passe, host, port, nom de la base), éventuellement d’autres secrets applicatifs (API keys, tokens, etc.)
 
- dans ce projet, il va:
+Dans ce projet, il va:
 
- sécurisé le Stockage:
-→ Au lieu d’écrire le mot de passe MySQL dans ton code PHP ou dans un fichier de config, tu le mets dans Secrets Manager.
+-  sécurisé le Stockage:
+ Au lieu d’écrire le mot de passe MySQL dans ton code PHP ou dans un fichier de config, tu le mets dans Secrets Manager.
 
- contrôler l' Accès via IAM :
-→ Tes instances EC2 ont un IAM Role qui leur permet d’appeler Secrets Manager.
+-  contrôler l' Accès via IAM :
+Tes instances EC2 ont un IAM Role qui leur permet d’appeler Secrets Manager.
 → Résultat : seules tes EC2 peuvent récupérer ces infos, pas les utilisateurs finaux.
 
 faire une rotation automatique des credentials (optionnel mais recommandé) :
