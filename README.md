@@ -10,7 +10,8 @@ L'objectif est de garantir l'accessibilité du site web au public tout en proté
 <h3><b>🔹Documentation technique </b></h3>
 Nous allons décrire chaque composant et justifier leur choix.
 
-<br>✅ Rôle du VPC :
+✅ Rôle du VPC :
+
 Le VPC permet de créer son propre réseau privé dans AWS, comme si on construisait notre propre centre de données dans le cloud. 
  Ce qu’on y fait :
  - Créer un réseau isolé avec des plages IP personnalisées
@@ -19,7 +20,7 @@ Le VPC permet de créer son propre réseau privé dans AWS, comme si on construi
  - Gérer les routes et la communication entre les ressources
  - appliquer des groupes de sécurité/ règles de sécurité et ACLs
 
-<br>✅  Application Layer: Auto Scaling Group of EC2 instances (Amazon Linux 2023) in private subnets.
+✅  Application Layer: Auto Scaling Group of EC2 instances (Amazon Linux 2023) in private subnets.
 
 Ce sont les serveurs applicatifs qui contiennent le code métier (API, backend, site web, etc.).
 Placés dans des private subnets pour les protéger d’Internet.
@@ -81,8 +82,7 @@ Rôle : la porte d’entrée/sortie du VPC vers Internet.
 - Stocker des dumps SQL, du code, ou des fichiers à partager entre services AWS.
 Accessible via HTTP/HTTPS (API REST).
 
-✅  Data Layer: Amazon RDS (Relational Database Service). MySQL in DB subnets, with credentials stored in Secrets Manager.
-  
+✅  Data Layer: Amazon RDS (Relational Database Service). MySQL in DB subnets, with credentials stored in Secrets Manager.<br>
 Amazon RDS est un service de Base de données relationnelle managée avec lequel on peut:
 - Stocker et gérer des données structurées , c 'est à dire Stocke les données en tables et colonnes (par exemple des utilisateurs, 
 des commandes, des statistiques).
@@ -123,25 +123,25 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 -->
 <br>
 👉 Haute disponibilité
-• Distribution du trafic via ALB.
-• Mise à l'échelle automatique via ASG
-• RDS en option en multi-AZ.
+-  Distribution du trafic via ALB.
+- Mise à l'échelle automatique via ASG
+- RDS en option en multi-AZ.
 
 <br>
 👉 Sécurité
-• Instances d'application et de base de données dans des sous-réseaux privés.
-• Groupes de sécurité strictement configurés (ALB public → EC2 privé → RDS).
-• Gestion des secrets via AWS Secrets Manager.
-• Utilisation des rôles IAM pour un accès contrôlé aux services AWS.
-• Évolutivité
-• Mise à l'échelle automatique basée sur des métriques (par exemple, CPU > 70 %).
-• Architecture évolutive pour intégrer des caches (ElastiCache) ou un CDN (CloudFront).
+-  Instances d'application et de base de données dans des sous-réseaux privés.
+- Groupes de sécurité strictement configurés (ALB public → EC2 privé → RDS).
+- Gestion des secrets via AWS Secrets Manager.
+-  Utilisation des rôles IAM pour un accès contrôlé aux services AWS.
+- Évolutivité
+- Mise à l'échelle automatique basée sur des métriques (par exemple, CPU > 70 %).
+- Architecture évolutive pour intégrer des caches (ElastiCache) ou un CDN (CloudFront).
 
 <br>
 👉 Importation de données
-• Téléchargement du dump SQL sur S3.
-• Téléchargement via EC2.
-• Importation dans RDS avec MySQL.
+- Téléchargement du dump SQL sur S3.
+- Téléchargement via EC2.
+- Importation dans RDS avec MySQL.
 <br>
 
 <H2><b> Évaluation du coût AWS</b></H2>
@@ -186,7 +186,7 @@ Afin de garantir la disponibilité, la performance et la sécurité de l’appli
 - Création d’alarmes sur des seuils critiques (ex. CPU > 80% pendant 5 minutes, latence ALB élevée, échec de l’état de santé RDS).
 - Déclenchement automatique de notifications.
 
-👉Amazon SNS (Simple Notification Service) :
+👉Amazon SNS (Simple Notification Service) :<br>
 Les alarmes CloudWatch envoient des alertes email/SMS via un SNS Topic configuré pour notifier l’administrateur système.
 
 👉CloudWatch Logs :
@@ -209,11 +209,11 @@ Bénéfices :
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 5.0"
+      version = ">= 5.0"
     }
     random = {
       source  = "hashicorp/random"
-      version = "~> 3.0"
+      version = ">= 3.0"
     }
   }
 }
