@@ -122,13 +122,13 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 🎯
 -->
 <br>
-👉 Haute disponibilité
+👉 Haute disponibilité:
 -  Distribution du trafic via ALB.
 - Mise à l'échelle automatique via ASG
 - RDS en option en multi-AZ.
 
 <br>
-👉 Sécurité
+👉 Sécurité:
 -  Instances d'application et de base de données dans des sous-réseaux privés.
 - Groupes de sécurité strictement configurés (ALB public → EC2 privé → RDS).
 - Gestion des secrets via AWS Secrets Manager.
@@ -138,7 +138,7 @@ Tu vas créer une base MySQL dans RDS pour stocker toutes les données de ton si
 - Architecture évolutive pour intégrer des caches (ElastiCache) ou un CDN (CloudFront).
 
 <br>
-👉 Importation de données
+👉 Importation de données:
 - Téléchargement du dump SQL sur S3.
 - Téléchargement via EC2.
 - Importation dans RDS avec MySQL.
