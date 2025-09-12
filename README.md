@@ -1,10 +1,9 @@
 # AWS-PROJECT
-
 <pre>
- 
-<h3><b>🔹Introduction</b></h3>
 
-Le projet consiste à déployer une application PHP existante sur AWS, en respectant les bonnes pratiques de sécurité, de disponibilité et d'évolutivité. L'objectif est de garantir l'accessibilité du site web au public tout en protégeant les systèmes back-end.
+<h3><b>🔹Introduction</b></h3>
+Le projet consiste à déployer une application PHP existante sur AWS, en respectant les bonnes pratiques de sécurité, de disponibilité et d'évolutivité.
+L'objectif est de garantir l'accessibilité du site web au public tout en protégeant les systèmes back-end.
 
 <h3><b>🔹Diagramme architechturale</b></h3>
 <img width="465" height="452" alt="Capoiu" src="https://github.com/user-attachments/assets/8de22f52-a942-4938-9c1e-e6dbec7c8a1c" />
@@ -53,11 +52,13 @@ Mais Internet ne peut pas initier de connexion vers elles ( accès sortant uniqu
 
 <!--🎯 
 NAT (la technique) :
-C’est le mécanisme réseau qui permet de traduire des adresses IP privées en adresses IP publiques (et inversement) pour que des machines privées puissent accéder à Internet, sans être directement exposées.
+C’est le mécanisme réseau qui permet de traduire des adresses IP privées en adresses IP publiques (et inversement) pour que des machines privées
+puissent accéder à Internet, sans être directement exposées.
 NAT Gateway (dans AWS) :
 👉 C’est une ressource virtuelle (un service managé par AWS) qui applique cette technique de NAT.
 👉 Tu le déploies dans un subnet public avec une Elastic IP (EIP).
-👉 Les instances dans les subnets privés passent par lui pour sortir sur Internet (ex : télécharger des mises à jour, accéder à des dépôts, etc.), mais elles ne sont pas accessibles depuis l’extérieur.
+👉 Les instances dans les subnets privés passent par lui pour sortir sur Internet (ex : télécharger des mises à jour, accéder à des dépôts, etc.),
+ mais elles ne sont pas accessibles depuis l’extérieur.
 Exemple :
 mon serveur applicatif EC2 dans un subnet privé fait un yum update.
 Il passe par la route → NAT Gateway → IGW → Internet.
@@ -66,7 +67,6 @@ Il passe par la route → NAT Gateway → IGW → Internet.
 
 Attachée au VPC.
 Nécessaire pour toute communication entre le VPC et Internet.
- 
 Sert à deux choses :
 - L’ALB dans le public subnet → reçoit du trafic entrant depuis Internet.
 - La NAT Gateway → envoie le trafic sortant vers Internet.
@@ -84,7 +84,8 @@ Accessible via HTTP/HTTPS (API REST).
 ✅  Data Layer: Amazon RDS (Relational Database Service). MySQL in DB subnets, with credentials stored in Secrets Manager.
   
 Amazon RDS est un service de Base de données relationnelle managée avec lequel on peut:
-- Stocker et gérer des données structurées , c 'est à dire Stocke les données en tables et colonnes (par exemple des utilisateurs, des commandes, des statistiques).
+- Stocker et gérer des données structurées , c 'est à dire Stocke les données en tables et colonnes (par exemple des utilisateurs, 
+des commandes, des statistiques).
 - Supporte plusieurs moteurs : MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, Aurora.
 - Permet aux applications  de faire des requêtes SQL : SELECT, INSERT, UPDATE, etc.
 - Gère les sauvegardes automatiques, la haute disponibilité, la réplication.
@@ -95,13 +96,15 @@ Amazon RDS est un service de Base de données relationnelle managée avec lequel
 ✅Rôle de Secrets Manager 
 
 AWS Secrets Manager est un service géré qui stocke et protège les informations sensibles comme :
-les identifiants de connexion MySQL (nom d’utilisateur, mot de passe, host, port, nom de la base), éventuellement d’autres secrets applicatifs (API keys, tokens, etc.)
+les identifiants de connexion MySQL (nom d’utilisateur, mot de passe, host, port, nom de la base), éventuellement d’autres secrets applicatifs
+ (API keys, tokens, etc.)
 
 Dans ce projet, il va:
 -  sécurisé le Stockage:
  Au lieu d’écrire le mot de passe MySQL dans ton code PHP ou dans un fichier de config, tu le mets dans Secrets Manager.
 -  contrôler l' Accès via IAM :
-Les instances EC2 ont un IAM Role qui leur permet d’appeler Secrets Manager. Résultat? Seules Les EC2 peuvent récupérer ces infos, pas les utilisateurs finaux.
+Les instances EC2 ont un IAM Role qui leur permet d’appeler Secrets Manager. Résultat? Seules Les EC2 peuvent récupérer ces infos,
+ pas les utilisateurs finaux.
 - faire une rotation automatique des credentials (optionnel mais recommandé) :
 Secrets Manager peut changer régulièrement le mot de passe MySQL sans qu'on ne modifie son application. Ça améliore la sécurité contre les fuites.
 
@@ -110,7 +113,8 @@ Secrets Manager peut changer régulièrement le mot de passe MySQL sans qu'on ne
 S3 = Stockage de fichiers (non structuré).C’est du stockage d’objets → tu mets des fichiers (appelés objets) dans des buckets.
 
 Chaque objet a un ID (clé) et des métadonnées, mais tu ne peux pas faire de requêtes comme SELECT ou WHERE.
-Je pourrais l’utiliser comme une sorte de "base NoSQL" si tu ajoutes une autre couche (par exemple : Amazon Athena pour faire des requêtes SQL sur des fichiers CSV/Parquet dans S3, ou DynamoDB qui est le vrai service NoSQL d’AWS).
+Je pourrais l’utiliser comme une sorte de "base NoSQL" si tu ajoutes une autre couche (par exemple : Amazon Athena pour faire des requêtes SQL sur
+ des fichiers CSV/Parquet dans S3, ou DynamoDB qui est le vrai service NoSQL d’AWS).
 
 RDS = Base de données relationnelle (structurée en tables).
  Exemple concret avec ton projet :
@@ -172,7 +176,8 @@ Objectif du Monitoring
 - Alerter en cas de problème (ex : CPU trop haut, DB en panne, instance non healthy).
 - Analyser la performance et les logs pour l’optimisation.
  
-Afin de garantir la disponibilité, la performance et la sécurité de l’application, une solution de monitoring a été intégrée à l’architecture à l’aide des services Amazon CloudWatch et Amazon SNS .
+Afin de garantir la disponibilité, la performance et la sécurité de l’application, une solution de monitoring a été intégrée à l’architecture à
+ l’aide des services Amazon CloudWatch et Amazon SNS .
 
 👉CloudWatch Metrics :
 - Suivi de l’utilisation CPU, mémoire, trafic réseau et état de santé des instances EC2 dans l’Auto Scaling Group.
@@ -195,12 +200,8 @@ Bénéfices :
 - Détection proactive des incidents (surconsommation CPU, panne DB, instance EC2 non disponible).
 - Automatisation des actions grâce au couplage Auto Scaling + CloudWatch.
 - Meilleure visibilité sur la santé globale du système.
-
 </pre>
 
-
-
- ```hcl
 
 <br>
 <H2>CODE TERRAFORM</H2>
@@ -703,7 +704,7 @@ output "secrets_arn" {
   sensitive   = false
 }
 ```
-<pre> 
+ 
 <br>
 <b><h2>Conclusion </h2></b>
 
