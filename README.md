@@ -173,16 +173,16 @@ Dans mon architecture, nous avons :
 
 | Catégorie / ressource                   |  Quantité | Base tarifaire utilisée                                                                  | Coût/mois (est.) |
 | --------------------------------------- | --------: | ---------------------------------------------------------------------------------------- | ---------------: |
-| **NAT Gateway (heure)**                 | 1 × 730 h | \$0.045 / heure. ([Amazon Web Services, Inc.][1])                                        |      **\$32.85** |
-| **NAT Gateway — traitement données**    |     10 GB | \$0.045 / GB (ex.) ([Amazon Web Services, Inc.][1])                                      |       **\$0.45** |
-| **Application Load Balancer (horaire)** | 1 × 730 h | \$0.0225 / heure (base) + \$0.008 / LCU-hr (1 LCU). ([Amazon Web Services, Inc.][2])     |      **\$22.27** |
-| **EC2 (t2.micro)**                      | 1 × 730 h | \$0.0116 / heure (on-demand). ([instances.vantage.sh][3])                                |       **\$8.47** |
-| **RDS (db.t3.micro)**                   | 1 × 730 h | ≈ \$0.018 / heure (MySQL). ([instances.vantage.sh][4])                                   |      **\$13.14** |
-| **RDS stockage (gp2)**                  |     20 GB | ≈ \$0.115 / GB-mo (approx.) ([Amazon Web Services, Inc.][5])                             |       **\$2.30** |
-| **S3 Standard**                         |     10 GB | ≈ \$0.023 / GB-mo (first tier). ([CloudZero][6])                                         |       **\$0.23** |
-| **Secrets Manager**                     |  1 secret | \$0.40 / secret / mois. ([Amazon Web Services, Inc.][7])                                 |       **\$0.40** |
+| **NAT Gateway (heure)**                 | 1 × 730 h | \$0.045 / heure. ([1])                                                                   |      **\$32.85** |
+| **NAT Gateway — traitement données**    |     10 GB | \$0.045 / GB (ex.) ([1])                                                                 |       **\$0.45** |
+| **Application Load Balancer (horaire)** | 1 × 730 h | \$0.0225 / heure (base) + \$0.008 / LCU-hr (1 LCU).                            ([2])     |      **\$22.27** |
+| **EC2 (t2.micro)**                      | 1 × 730 h | \$0.0116 / heure (on-demand).                       ([3])                                |       **\$8.47** |
+| **RDS (db.t3.micro)**                   | 1 × 730 h | ≈ \$0.018 / heure (MySQL). ([[4])                                   |      **\$13.14** |
+| **RDS stockage (gp2)**                  |     20 GB | ≈ \$0.115 / GB-mo (approx.) ([5])                             |       **\$2.30** |
+| **S3 Standard**                         |     10 GB | ≈ \$0.023 / GB-mo (first tier). ([6])                                         |       **\$0.23** |
+| **Secrets Manager**                     |  1 secret | \$0.40 / secret / mois. ([7])                                 |       **\$0.40** |
 | **CloudWatch (logs + 1 alarm)**         |         — | Estimation faible                                                                        |       **\$2.00** |
-| **Elastic IP (assoc.)**                 |         1 | Gratuit si associée à ressource en usage (sinon facturation). ([docs.aws.amazon.com][8]) |       **\$0.00** |
+| **Elastic IP (assoc.)**                 |         1 | Gratuit si associée à ressource en usage (sinon facturation). ([8]) |       **\$0.00** |
 | **Autres (IAM, Route Tables, VPC)**     |         — | Gratuit / inclus                                                                         |       **\$0.00** |
 
 <!-- 🎯
