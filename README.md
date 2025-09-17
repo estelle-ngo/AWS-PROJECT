@@ -169,7 +169,33 @@ Dans mon architecture, nous avons :
 
 <b> 2. AWS Pricing Calculator (outil officiel AWS)monitoring</b>
  
-<img width="611" height="180" alt="image" src="https://github.com/user-attachments/assets/26622681-2e9f-4c81-8769-6637871c2f47" />
+<!-- 🎯<img width="611" height="180" alt="image" src="https://github.com/user-attachments/assets/26622681-2e9f-4c81-8769-6637871c2f47" />  🎯-->
+
+| Catégorie / ressource                   |  Quantité | Base tarifaire utilisée                                                                  | Coût/mois (est.) |
+| --------------------------------------- | --------: | ---------------------------------------------------------------------------------------- | ---------------: |
+| **NAT Gateway (heure)**                 | 1 × 730 h | \$0.045 / heure. ([Amazon Web Services, Inc.][1])                                        |      **\$32.85** |
+| **NAT Gateway — traitement données**    |     10 GB | \$0.045 / GB (ex.) ([Amazon Web Services, Inc.][1])                                      |       **\$0.45** |
+| **Application Load Balancer (horaire)** | 1 × 730 h | \$0.0225 / heure (base) + \$0.008 / LCU-hr (1 LCU). ([Amazon Web Services, Inc.][2])     |      **\$22.27** |
+| **EC2 (t2.micro)**                      | 1 × 730 h | \$0.0116 / heure (on-demand). ([instances.vantage.sh][3])                                |       **\$8.47** |
+| **RDS (db.t3.micro)**                   | 1 × 730 h | ≈ \$0.018 / heure (MySQL). ([instances.vantage.sh][4])                                   |      **\$13.14** |
+| **RDS stockage (gp2)**                  |     20 GB | ≈ \$0.115 / GB-mo (approx.) ([Amazon Web Services, Inc.][5])                             |       **\$2.30** |
+| **S3 Standard**                         |     10 GB | ≈ \$0.023 / GB-mo (first tier). ([CloudZero][6])                                         |       **\$0.23** |
+| **Secrets Manager**                     |  1 secret | \$0.40 / secret / mois. ([Amazon Web Services, Inc.][7])                                 |       **\$0.40** |
+| **CloudWatch (logs + 1 alarm)**         |         — | Estimation faible                                                                        |       **\$2.00** |
+| **Elastic IP (assoc.)**                 |         1 | Gratuit si associée à ressource en usage (sinon facturation). ([docs.aws.amazon.com][8]) |       **\$0.00** |
+| **Autres (IAM, Route Tables, VPC)**     |         — | Gratuit / inclus                                                                         |       **\$0.00** |
+
+<!-- 🎯
+[1]: https://aws.amazon.com/vpc/pricing/?utm_source=chatgpt.com "Amazon VPC Pricing"
+[2]: https://aws.amazon.com/elasticloadbalancing/pricing/?utm_source=chatgpt.com "Elastic Load Balancing pricing"
+[3]: https://instances.vantage.sh/aws/ec2/t2.micro?utm_source=chatgpt.com "t2.micro pricing and specs - Amazon EC2 Instance Comparison"
+[4]: https://instances.vantage.sh/aws/rds/db.t3.micro?utm_source=chatgpt.com "db.t3.micro pricing and specs - Vantage"
+[5]: https://aws.amazon.com/rds/pricing/?utm_source=chatgpt.com "Managed Relational Database - Amazon RDS Pricing"
+[6]: https://www.cloudzero.com/blog/s3-pricing/?utm_source=chatgpt.com "A 2025 Guide To Amazon S3 Pricing"
+[7]: https://aws.amazon.com/secrets-manager/pricing/?utm_source=chatgpt.com "AWS Secrets Manager pricing"
+[8]: https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html?utm_source=chatgpt.com "Elastic IP addresses"
+🎯-->
+
 
 <br>
 <H2>🛠️<b>Monitoring et Observabilité</b></H2>
