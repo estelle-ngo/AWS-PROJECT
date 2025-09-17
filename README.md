@@ -5,7 +5,8 @@ Le projet consiste à déployer une application PHP existante sur AWS, en respec
 L'objectif est de garantir l'accessibilité du site web au public tout en protégeant les systèmes back-end.
 
 <h3><b>🔹Diagramme architechturale</b></h3>
-<img width="465" height="452" alt="Capoiu" src="https://github.com/user-attachments/assets/8de22f52-a942-4938-9c1e-e6dbec7c8a1c" />
+<img width="2900" height="1644" alt="archi final modifie" src="https://github.com/user-attachments/assets/1a61dc0b-d8f5-4930-bef3-327040466618" />
+
  
 <h3><b>🔹Documentation technique </b></h3>
 Nous allons décrire chaque composant et justifier leur choix.
