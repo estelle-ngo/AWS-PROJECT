@@ -230,6 +230,11 @@ Bénéfices :
 - Meilleure visibilité sur la santé globale du système.
 
 <br>
+<b><h2>Conclusion </h2></b><br>
+La solution proposée satisfait pleinement aux objectifs du projet : elle garantit une haute disponibilité, un niveau de sécurité renforcé ainsi qu’une capacité d’évolution optimale. L’architecture retenue constitue ainsi une base robuste et fiable pour le déploiement de l’application PHP sur AWS.
+
+
+<br>
 <H2>CODE TERRAFORM</H2>
  <pre>
 ```hcl
@@ -548,6 +553,3 @@ resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
 ```
  </pre>
 
-<br>
-<b><h2>Conclusion </h2></b><br>
-La solution proposée satisfait pleinement aux objectifs du projet : elle garantit une haute disponibilité, un niveau de sécurité renforcé ainsi qu’une capacité d’évolution optimale. L’architecture retenue constitue ainsi une base robuste et fiable pour le déploiement de l’application PHP sur AWS.
